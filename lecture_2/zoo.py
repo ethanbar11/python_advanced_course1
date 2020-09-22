@@ -3,11 +3,17 @@ import random
 
 class Lion:
     def __init__(self):
-        self.name = None
+        self.__name = None
+        self.__special_name = None
+        self.bla = 5
 
     def set_name(self, name):
         one_index = random.randint(0, len(name))
-        self.name = name[0:one_index] + '1' + name[one_index:]
+        self.__name = name
+        self.__special_name = name[0:one_index] + '1' + name[one_index:]
+
+    def get_name(self):
+        return self.__special_name
 
 
 class Zoo:
@@ -15,8 +21,8 @@ class Zoo:
         self.lions = {}
 
     def add_lion(self, lion):
-        if not lion.name in self.lions:
-            self.lions[lion.name] = lion
+        if lion.get_name() not in self.lions:
+            self.lions[lion.get_name()] = lion
         else:
             # There was a problem because a lion with that name
             # already exists
@@ -33,7 +39,6 @@ class Zoo:
 if __name__ == '__main__':
     lion1 = Lion()
     lion1.set_name('Shlomi')
-    print(lion1.name)
     lion2 = Lion()
     lion2.set_name('Robi')
     lion3 = Lion()
@@ -42,5 +47,5 @@ if __name__ == '__main__':
     zoo.add_lion(lion1)
     zoo.add_lion(lion2)
     zoo.add_lion(lion3)
-    zoo.remove_lion('Robi')
+    zoo.remove_lion(lion2.get_name())
     print(zoo.get_lions_amount())

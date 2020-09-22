@@ -40,8 +40,48 @@ class Stack:
     def is_empty(self):
         return len(self.lst) == 0
 
+    def __add__(self, other):
+        new_stack = Stack()
+        new_stack.lst += self.lst + other.lst
+
+    def __eq__(self, other):
+        if len(self.lst) != len(other.lst):
+            return False
+
+        for i, item in enumerate(self.lst):
+            if item != other.lst[i]:
+                return False
+        return True
+
+    def __len__(self):
+        return len(self.lst)
+
+
+def validate_sentence(sentence):
+    stack = Stack()
+    bracelets = {'{': '}', '(': ')', '[': ']'}
+    for s in sentence:
+        if s in bracelets.values() or s in bracelets.keys():
+            # If i'm here- it means that s is a bracelet.
+            if s in bracelets.keys():
+                # If I'm here it means that it opens
+                stack.push(s)
+            if s in bracelets.values():
+                # If I'm here it means that it closes
+                if len(stack) == 0:
+                    return False
+                opening_bracelet = stack.pop()
+                if bracelets[opening_bracelet] != s:
+                    return False
+    # There are still more opening bracelets but no closings.
+    if len(stack) > 0:
+        return False
+    return True
+
 
 stack = Stack()
 stack.push('a')
 stack.push('b')
 print(stack.pop())
+
+# print(validate_sentence('[([)]]'))
