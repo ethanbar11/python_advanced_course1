@@ -37,10 +37,18 @@ def get_encoded_file_name(file_name):
     return lst[0] + '_encoded.' + lst[1]
 
 
+def get_decoded_file_name(file_name):
+    lst = file_name.split('.')
+    return lst[0] + '_decoded.' + lst[1]
+
+
 if __name__ == '__main__':
     file_name = input('Give me the file name please: ')
-    is_for_encoding = bool(input('Is it for encoding? True/False'))
+    is_for_encoding = input('Is it for encoding? 1/2') == '1'
     move_amount = int(input('Insert move amount: '))
     if is_for_encoding:
         file_name_to_write = get_encoded_file_name(file_name)
         encode_file(file_name, file_name_to_write, move_amount)
+    else:
+        file_name_to_write = get_decoded_file_name(file_name)
+        encode_file(file_name, file_name_to_write, -move_amount)
