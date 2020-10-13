@@ -35,14 +35,24 @@ def insert_student(conn, name, age, profession):
     return cur.lastrowid
 
 
-query_table = '''CREATE TABLE IF NOT EXISTS students (
+def insert_message(conn, sender, message):
+    student = (sender, message)
+    sql = ''' INSERT INTO history(sender,message)
+                  VALUES(?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, student)
+    conn.commit()
+    return cur.lastrowid
+
+
+query_table = '''CREATE TABLE IF NOT EXISTS history (
 	id integer PRIMARY KEY,
-	name text NOT NULL,
-	age int,
-	profession text
+	sender text NOT NULL,
+	message text
 );'''
 
 if __name__ == '__main__':
     conn = get_connection(r"C:\Users\Borat\int_database.db")
-    # create_table(conn, query_table)
-    insert_student(conn, "hello", 5, 'Programmer')
+    # create_table()
+    create_table(conn, query_table)
+    # insert_student(conn, "hello", 5, 'Programmer')
