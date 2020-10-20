@@ -1,8 +1,8 @@
 import socket
 import time
-import python_advanced_course1.lecture_5.DAL as DAL
+import python_advanced_course1.lecture_5.FILE_DAL as DAL
 
-DB_PATH = r"C:\Users\Borat\int_database.db"
+DB_PATH = r"C:\Users\Borat\int_database.txt"
 conn = DAL.get_connection(DB_PATH)
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.bind(('127.0.0.1', 8089))
